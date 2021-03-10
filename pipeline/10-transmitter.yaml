@@ -1,0 +1,11 @@
+apiVersion: "gravity.brobridge.com/v2"
+kind: "Transmitter"
+metadata:
+  name: "demo-transmitter"
+spec:
+  type: mongodb
+  #image: brobridgehub/gravity-transmitter-mongodb:v1
+  replicas: 1 
+  mongodbConfig:
+    uri: "mongodb://mongodb-service:27017"
+    dbName: "gravity"

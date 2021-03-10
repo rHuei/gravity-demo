@@ -1,0 +1,29 @@
+{
+	"method": "get",
+	"uri": "/api/otData",
+	"query": {
+		"table": "gravity",
+		"condition": {
+			"name": "Time",
+			"value": "parseFloat(query.time)",
+			"operator": "<="
+		},
+		"limit": 1,
+		"orderBy": "Time",
+		"descending": true
+	},
+	"response": {
+		"state": {
+			"no_results": {
+				"contentType": "application/json",
+				"code": 404,
+				"template": "otApi.no_results.tmpl"
+			},
+			"success": {
+				"contentType": "application/json",
+				"code": 200,
+				"template": "otApi.success.tmpl"
+			}
+		}
+	}
+}

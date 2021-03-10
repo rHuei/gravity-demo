@@ -1,0 +1,27 @@
+#Please use `echo -n YOUR_PASSWORD | base64` to create your secret
+apiVersion: v1
+kind: Secret
+metadata:
+  name: demo-transmitter-mysql-secret
+data:
+  mysqlPassword: MTIzNDU2 
+
+---
+
+apiVersion: "gravity.brobridge.com/v2"
+kind: "Transmitter"
+metadata:
+  name: "demo-transmitter-mysql"
+spec:
+    type: mysql
+    replicas: 1 
+    mysqlConfig:
+      host: mysql
+      port: 3306
+      secure: false
+      dbName:  gravity
+      username: root
+      passwordSecret:
+        name: demo-transmitter-mysql-secret
+        key: mysqlPassword
+

@@ -1,0 +1,17 @@
+{
+	"method": "get",
+	"uri": "/otData",
+	"query": {
+		"table": "gravity",
+		"limit": 10,
+		"orderBy": "Time",
+		"descending": true
+	},
+	"response": {
+		"state": {
+			"success": {
+				"contentType": "text/html"
+			}
+		}
+	}
+}

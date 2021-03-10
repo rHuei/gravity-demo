@@ -1,0 +1,77 @@
+apiVersion: "gravity.brobridge.com/v2"
+kind: "Gravity"
+metadata:
+  name: "demo-gravity"
+spec:
+  #initSpec:
+    #initImage: busybox:1.28
+
+  natsSpec:
+    #image: brobridgehub/nats-server:latest
+    replicas: 1
+
+  #dsaSpec:
+    #image: brobridgehub/gravity-dsa:v1
+
+  dataHandlerSpec:
+    #image: brobridgehub/gravity-data-handler:v2
+    pipelineSize: 64
+    config:
+      rules:
+        - event: "otCreated"
+          collection: "otData"
+          # NOTE method options: insert, update, delete
+          method: insert
+          # NOTE  primaryKey must match mapping.target
+          #primaryKey: Time
+          #mapping:
+            #- source:
+            #  target:
+
+  #controllerSpec:
+    #image: brobridgehub/gravity-controller:v1
+
+  synchronizerSpec:
+    replicas: 1
+    #image: brobridgehub/gravity-synchronizer:v2
+    config:
+      stores:
+        mongodb:
+          collection: "otData"
+          database: "my_mongodb"
+          table: "gravity"
+        mysql:
+          collection: "otData"
+          database: "my_mysql"
+          table: "gravity"
+      triggers:
+        - condition:
+            store: "mongodb"
+            event: "otCreated"
+          action:
+            type: "exporter"
+            exporter: "my_rest"
+        - condition:
+            store: "mysql"
+            event: "otCreated"
+          action:
+            type: "exporter"
+            exporter: "my_rest"
+      transmitters:
+        my_mongodb:
+          host: "demo-transmitter-mongodb"
+          port: 44143
+        my_mysql:
+          host: "demo-transmitter-mysql-mysql"
+          port: 44143
+      exporters:
+        my_rest:
+          host: "demo-exporter-rest"
+          port: 44144
+          #channel: "gravity.pipeline.synced"
+      #volume:
+      #  #NOTE: reference https://kubernetes.io/docs/concepts/storage/volumes/
+      #  name: demo-store
+      #  persistentVolumeClaim:
+      #    claimName: demo-gravity-pvc
+

@@ -1,0 +1,11 @@
+apiVersion: "gravity.brobridge.com/v2"
+kind: "Querykit"
+metadata:
+  name: "demo-querykit"
+spec:
+    type: mongodb
+    #image: brobridgehub/gravity-querykit-mongodb:v1
+    replicas: 1 
+    mongodbConfig:
+      uri: "mongodb://mongodb-service:27017"
+      dbName: "gravity"

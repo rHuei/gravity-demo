@@ -1,0 +1,13 @@
+apiVersion: "gravity.brobridge.com/v2"
+kind: "Exporter"
+metadata:
+  name: "demo-exporter"
+spec:
+  type: rest
+  replicas: 1
+  config:
+    method: post
+    uri: http://192.168.1.179:8080/ex
+    headers:
+      #       aa: bb
+      #       cc: dd

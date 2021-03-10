@@ -1,0 +1,15 @@
+apiVersion: "gravity.brobridge.com/v2"
+kind: "Adapter"
+metadata:
+  name: "demo-adapter"
+spec:
+    type: rest
+    #image: brobridgehub/gravity-adapter-rest:v1
+    replicas: 1 
+    config:
+      dsaHost: demo-gravity-dsa:44444
+      apiPort: 8080
+      restSettings:
+        source:
+          uri: "/dataInput"
+

@@ -1,0 +1,15 @@
+{
+	{{ range $key, $value := (index .Records 0) }}
+	{{ if ne $key "_id" }}
+	{{ if eq "string" ( printf "%T" $value ) }}
+	"{{ $key }}": "{{ $value }}",
+	{{ else if eq "float64" ( printf "%T" $value ) }}
+	"{{ $key }}": {{ printf "%f" $value }},
+	{{ else if eq "int64" ( printf "%T" $value ) }}
+	"{{ $key }}": {{ $value }},
+	{{ else }}
+	"{{ $key }}": "{{ $value }}",
+	{{ end }}
+	{{ end }}
+	{{ end }}
+}

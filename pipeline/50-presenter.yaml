@@ -1,0 +1,19 @@
+# Use command line  to create configmap
+# example: kubectl create configmap CONFIG_NAME --from-file=/TEMPLATE_DIR/
+# example: kubectl create configmap demo-presenter-template --from-file=./presenter-setting/
+
+apiVersion: "gravity.brobridge.com/v2"
+kind: "Presenter"
+metadata:
+  name: "demo-presenter"
+spec:
+    type: rest
+    #image: brobridgehub/gravity-presenter-rest:v1
+    replicas: 1 
+    config:
+      presenterConfig:
+        querykitHost: demo-querykit-mongodb
+        querykitPort: 44149
+      settings:
+        configMapName: demo-presenter-template
+
